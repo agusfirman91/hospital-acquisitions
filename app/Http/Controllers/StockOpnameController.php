@@ -7,15 +7,16 @@ use App\CompanyWarehouse;
 use App\Stock;
 use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Auth;
+use DB;
 
 class StockOpnameController extends Controller
 {
     function index()
     {
         $companies = new CompanyWarehouse();
-        $companies = $companies->select('company_id',)->groupBy('company_id')->get();
+        $companies = $companies->select('company_id')->groupBy('company_id')->get();
+        // dd($companies);
         foreach ($companies as $cp) {
             $company_id[] = $cp->company_id;
         }
@@ -132,7 +133,7 @@ class StockOpnameController extends Controller
     public function report()
     {
         $companies = new CompanyWarehouse();
-        $companies = $companies->select('company_id',)->groupBy('company_id')->get();
+        $companies = $companies->select('company_id')->groupBy('company_id')->get();
         foreach ($companies as $cp) {
             $company_id[] = $cp->company_id;
         }

@@ -71,7 +71,7 @@
 
 
         <br>
-        <form action="{{ route('stock.opname.post',)}}" method="POST">
+        <form action="{{ route('stock.opname.post')}}" method="POST">
             @csrf
             <div class="table-responsive">
                 <table class="table table-sm table-hover table-striped" style="width: 100%" id="tableStockOpname">
