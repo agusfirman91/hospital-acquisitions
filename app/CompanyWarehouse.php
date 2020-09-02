@@ -17,5 +17,9 @@ class CompanyWarehouse extends Model
         // return $this->belongsTo(Company::class, 'company_id', 'id');
         return DB::table('company')->select('id', 'name')->whereIn('id', $id)->get();
     }
-    //
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
 }

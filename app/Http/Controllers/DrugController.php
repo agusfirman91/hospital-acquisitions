@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Company;
 use App\Drug;
 use App\Warehouse;
@@ -18,7 +19,9 @@ class DrugController extends Controller
     public function index()
     {
         $companies = Company::select('id', 'name')->get();
-        return view('drug', compact('companies'));
+        $warehouses  = Warehouse::select('id', 'name')->get();
+        $categories  = Category::select('id', 'name')->get();
+        return view('drug', compact('companies', 'warehouses', 'categories'));
     }
 
     public function getData(Request $request)
@@ -26,9 +29,18 @@ class DrugController extends Controller
         if (request()->ajax()) {
             if ($request) {
                 $company_id =  $request->company_id;
-                $data = Drug::with(['unit', 'company', 'category', 'group', 'comodity', 'material'])->where('company_id', $company_id)->get();
-            } else {
-                $data = Drug::with(['unit', 'company', 'category', 'group', 'comodity', 'material'])->get();
+                $category_id =  $request->category_id;
+                $q = new Drug();
+                if ($category_id == "") {
+                    $q = $q->where('company_id', $company_id);
+                } else {
+                    $q = $q
+                        ->where('company_id', $company_id)
+                        ->where('category_id', $category_id);
+                }
+                $data = $q
+                    ->with(['company', 'category', 'unit', 'group', 'comodity', 'material'])
+                    ->get();
             }
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -74,9 +86,6 @@ class DrugController extends Controller
                         return $data->material->name;
                     }
                 })
-                // ->addColumn('warehouse_name', function ($data) {
-                //     return $data->warehouse->name;
-                // })
                 ->make(true);
         }
     }

@@ -10,6 +10,7 @@ class Stock extends Model
 {
     public $table = 'stock';
 
+    protected $guarded = ['id'];
 
     public function warehouse()
     {
@@ -29,8 +30,6 @@ class Stock extends Model
     {
         return $this->belongsTo(Drug::class, 'drug_code', 'code');
     }
-
-    protected $guarded = ['id'];
 
     public function createdbys()
     {

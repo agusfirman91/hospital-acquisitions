@@ -22,6 +22,23 @@
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/classic.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
+    <style>
+        .sidebar-link,
+        a.sidebar-link {
+            background: #6f42c1;
+        }
+
+        .sidebar,
+        .sidebar-content {
+            background: #6f42c1;
+        }
+
+        body {
+            background-image:url("{{ asset('images/bg.jpg')}}");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+    </style>
     @stack('style')
 </head>
 
@@ -69,15 +86,16 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="{{ route('group.index')}}">Golongan
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('warehouse.index')}}">Gudang
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('drug.index')}}">Barang /
+                                    Obat
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('upload.index')}}">Upload Barang /
                                     Obat
                                 </a>
                             </li>

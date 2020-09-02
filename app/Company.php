@@ -9,7 +9,7 @@ class Company extends Model
 {
     protected $guarded = ['id'];
 
-    public function warehouse()
+    public function getWarehouse()
     {
         return $this->belongsToMany(Warehouse::class)->wherePivotNotNull('company_id');
     }

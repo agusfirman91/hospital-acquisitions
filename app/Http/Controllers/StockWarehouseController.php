@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Company;
-use App\Drug;
 use App\Stock;
-use App\Warehouse;
-use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Facades\DB;
+use App\Company;
+use App\Warehouse;
+use App\Jobs\ImportJob;
+use Illuminate\Http\Request;
 
 class StockWarehouseController extends Controller
 {
@@ -88,71 +87,5 @@ class StockWarehouseController extends Controller
                     ->make(true);
             }
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StockController  $stockController
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StockController $stockController)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StockController  $stockController
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StockController $stockController)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StockController  $stockController
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StockController $stockController)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StockController  $stockController
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StockController $stockController)
-    {
-        //
     }
 }

@@ -25,7 +25,7 @@ class CompanyController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 return '<a href="' . route('company.edit', $data->id) . '" class="modal-show edit" title="Company: ' . $data->name . ' ">
-                    <i class="fa fa-pencil"></i>
+                    <i class="fas fa-edit" data-feather="edit">
                 </a>';
             })
             ->rawColumns(['action'])
@@ -51,18 +51,18 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // dd($request->all());
+        $this->validate($request,  [
+            'name' => 'required|string'
+        ]);
+        $company = new Company();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Company $company)
-    {
-        //
+        $data = [
+            'name' => $request->title,
+            'description' => $request->description
+        ];
+        $company->create($data);
+        return response()->json(['data' => $data, 'msg' => 'Data created successfully']);
     }
 
     /**
@@ -71,9 +71,10 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Request $request, $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('forms.company', compact(['company']));
     }
 
     /**
@@ -83,19 +84,18 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request,  [
+            'name' => 'required|string',
+        ]);
+        $company  = Company::findOrFail($id);
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Company $company)
-    {
-        //
+        $company->update($data);
+        return response()->json(['msg' => 'update successfully']);
     }
 }

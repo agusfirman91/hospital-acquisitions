@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comodity;
+use App\Company;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -15,6 +16,8 @@ class ComodityController extends Controller
      */
     public function index()
     {
+        // $data = Comodity::all();
+        // return $data;
         return view('comodity');
     }
 
@@ -24,9 +27,12 @@ class ComodityController extends Controller
         $data = Comodity::all();
         return Datatables::of($data)
             ->addIndexColumn()
+            ->addColumn('company_name', function ($data) {
+                return $data->company->name;
+            })
             ->addColumn('action', function ($data) {
-                return '<a href="' . route('stock.edit', $data->id) . '" class="modal-show edit" title="Stock: ' . $data->id . ' ">
-                    <i class="fa fa-pencil"></i>
+                return '<a href="' . route('comodity.edit', $data->id) . '" class="modal-show edit" title="Comodity: ' . $data->name . ' ">
+                <i class="fas fa-edit" data-feather="edit">
                 </a>';
             })
             ->rawColumns(['action'])
@@ -39,7 +45,9 @@ class ComodityController extends Controller
      */
     public function create()
     {
-        //
+        $comodity = new Comodity();
+        $company = Company::orderBy('name')->pluck('name', 'id');
+        return view('forms.comodity', compact(['comodity', 'company']));
     }
 
     /**
@@ -50,19 +58,20 @@ class ComodityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,  [
+            'company_id' => 'required|string',
+            'name' => 'required|string'
+        ]);
+        $comodity = new Comodity();
+
+        $data = [
+            'company_id' => $request->company_id,
+            'name' => $request->name,
+        ];
+        $comodity->create($data);
+        return response()->json(['msg' => 'Data created successfully']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Comodity  $comodity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comodity $comodity)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -70,9 +79,11 @@ class ComodityController extends Controller
      * @param  \App\Comodity  $comodity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comodity $comodity)
+    public function edit($id)
     {
-        //
+        $comodity = Comodity::findOrFail($id);
+        $company = Company::orderBy('name')->pluck('name', 'id');
+        return view('forms.comodity', compact(['comodity', 'company']));
     }
 
     /**
@@ -82,19 +93,19 @@ class ComodityController extends Controller
      * @param  \App\Comodity  $comodity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comodity $comodity)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request,  [
+            'company_id' => 'required|string',
+            'name' => 'required|string',
+        ]);
+        $comodity  = Comodity::findOrFail($id);
+        $data = [
+            'company_id' => $request->company_id,
+            'name' => $request->name,
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comodity  $comodity
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comodity $comodity)
-    {
-        //
+        $comodity->update($data);
+        return response()->json(['msg' => 'update successfully']);
     }
 }

@@ -15,7 +15,7 @@ class StockOpnameController extends Controller
     function index()
     {
         $companies = new CompanyWarehouse();
-        $companies = $companies->select('company_id',)->groupBy('company_id')->get();
+        $companies = $companies->select('company_id')->groupBy('company_id')->get();
         foreach ($companies as $cp) {
             $company_id[] = $cp->company_id;
         }

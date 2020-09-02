@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BWCH - Warehouse</title>
     <link rel="stylesheet" href="{{ asset('css/classic.css')}}">
+    <style>
+        body {
+            background-image:url("{{ asset('images/bg.jpg')}}");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,10 +25,11 @@
 
 
                         <div class="card">
-
                             <div class="text-center mt-4">
+                                <img src="{{ asset('images/logo.png') }} " alt="BWCH Logo"
+                                    class="img-fluid rounded-circle" width="132" height="132">
                                 <h1 class="h2">{{ config('app.name') }}</h1>
-                                <p class="lead">
+                                <p class=" lead">
                                     Sign in to your account to continue
                                 </p>
                             </div>
@@ -78,7 +86,7 @@
 
                                     <div class="form-group row mb-0">
                                         <div class="col-md-8 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-secondary">
                                                 {{ __('Login') }}
                                             </button>
 
