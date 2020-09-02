@@ -49,7 +49,8 @@
         </div>
 
         <div class="form-group row ml-0">
-            <button type="submit" id="btnFilterReport" class="offset-md-2 btn btn-primary">Search</button>
+            <button type="submit" id="btnFilterReport" class="offset-md-2 btn btn-secondary"><i
+                    class="fa fa-search"></i> Search</button>
         </div>
         <br>
         <div class="table-responsive">

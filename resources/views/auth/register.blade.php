@@ -7,15 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BWCH - Warehouse</title>
     <link rel="stylesheet" href="{{ asset('css/classic.css')}}">
+    <style>
+        body {
+            background-image:url("{{ asset('images/bg.jpg')}}");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+    </style>
 </head>
 
 <body>
     <main class="main d-flex justify-content-center w-100">
         <div class="container d-flex flex-column">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">{{ __('Register') }}</div>
+                        <div class="card-header text-center">
+                            <h5>{{ __('Register Account') }}</h5>
+                            <hr>
+                        </div>
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('register') }}">
@@ -102,7 +112,7 @@
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-secondary">
                                             {{ __('Register') }}
                                         </button>
                                     </div>
@@ -117,4 +127,8 @@
     <script src="{{ asset('js/classic.js')}}"></script>
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> df4fbffb4491a1f4bbf4adb0f536a7d7a2dce64d

@@ -6,20 +6,33 @@
         <div class="card-title">List Barang / Obat</div>
     </div>
     <div class="card-body">
+
         <div class="form-group row">
             <label class="col-md-2">Company</label>
             <div class="col-md-4">
-                <select name="company_id" id="company_id" class="form-control">
+                <select name="company_id" id="company_id" class="form-control form-control-sm">
                     <option value="">Silahkan pilih</option>
                     @foreach ($companies as $company)
-                    <option value="{{$company['id']}}">{{ $company['name'] }}</option>
+                    <option value="{{$company->id }}">{{ $company->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-2">Kategori</label>
+            <div class="col-md-4">
+                <select name="category_id" id="category_id" class="form-control form-control-sm">
+                    <option value="">All</option>
+                    @foreach ($categories as $category)
+                    <option value="{{$category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
 
         <div class="form-group row ml-0">
-            <button type="submit" id="btnFilter" class="offset-md-2 btn btn-primary">Search</button>
+            <button type="submit" id="btnFilterDrug" class="offset-md-2 btn btn-primary">Search</button>
         </div>
 
         <br>
@@ -28,9 +41,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode</th>
+                        <th>#Kode</th>
                         <th style="width:20%">Name</th>
-                        <th>Company</th>
                         <th>Satuan</th>
                         <th>Ketegori</th>
                         <th>Golongan</th>
@@ -58,7 +70,7 @@
                 }
         });
 
-        function load_data(company_id, warehouse_id){
+        function load_data(company_id, category_id){
             let table = $('#tableDrug').DataTable({
                     processing: true,
                     serverSide: true,
@@ -66,16 +78,15 @@
                     lengthMenu: [[10, 25, 50,100, -1], [10, 25, 50, 100,"All"]],
                     ajax: {
                         url :"{{ route('get.drug') }}",
-                        data:{company_id:company_id}
+                        data:{company_id:company_id,category_id:category_id}
                     },
                     columns: [
                         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                         {data: 'code', name: 'code'},
                         {data: 'name', name: 'name'},
-                        {data: 'company_name', name: 'company_name'},
                         {data: 'unit_name', name: 'unit_name'},
-                        {data: 'group_name', name: 'group_name'},
                         {data: 'category_name', name: 'category_name'},
+                        {data: 'group_name', name: 'group_name'},
                         {data: 'comodity_name', name: 'comodity_name'},
                         {data: 'material_name', name: 'material_name'},
                     ]
@@ -84,14 +95,14 @@
 
         // load_data();
 
-        $('#btnFilter').click(function(){
+        $('#btnFilterDrug').click(function(){
             let company_id = $('#company_id').val();
-            let warehouse_id = $('#warehouse_id').val();
-            if(company_id == "" && warehouse_id == ""){
+            let category_id = $('#category_id').val();
+            if(company_id == "" && category_id == ""){
                 $('#company_id').focus();
             }else{
             $('#tableDrug').DataTable().destroy();
-                load_data(company_id,warehouse_id);
+                load_data(company_id,category_id);
                 // console.log(warehouse_id);
             }
         });

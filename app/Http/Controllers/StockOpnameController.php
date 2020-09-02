@@ -16,7 +16,6 @@ class StockOpnameController extends Controller
     {
         $companies = new CompanyWarehouse();
         $companies = $companies->select('company_id')->groupBy('company_id')->get();
-        // dd($companies);
         foreach ($companies as $cp) {
             $company_id[] = $cp->company_id;
         }

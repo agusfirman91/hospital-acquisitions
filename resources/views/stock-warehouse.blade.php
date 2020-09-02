@@ -1,17 +1,4 @@
 @extends('layouts.app')
-@push('style')
-<style>
-    /* .table {
-        color: #000;
-    }
-
-    .table-bordered,
-    .table-bordered td,
-    .table-bordered th {
-        border: 1px solid #000;
-    } */
-</style>
-@endpush
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -61,11 +48,18 @@
 
 
         <div class="form-group row ml-0">
-            <button type="submit" id="btnFilter" class="offset-md-2 btn btn-primary">Search</button>
+            <div class="offset-md-2">
+
+                <button type="submit" id="btnFilter" class="btn btn-secondary">
+                    <i class="fa fa-search"></i> Search</button>
+            </div>
         </div>
+
+
         <input type="hidden" id="comName">
         <input type="hidden" id="wName">
         <input type="hidden" id="cName">
+        <input type="hidden" id="cDate" value="{{ date('d-m-Y H:i:s')}}">
         <br>
         <div class="table-responsive">
             <table class="table table-sm table-bordered" style="width: 100%" id="tableStock">
@@ -86,6 +80,7 @@
         </div>
     </div>
 </div>
+@include('layouts.modal')
 @endsection
 
 @push('scripts')
@@ -110,6 +105,7 @@
             let comName =$('#comName').val();
             let wName =$('#wName').val();
             let cName = $('#cName').val();
+            let cDate = $('#cDate').val();
                 $('#tableStock').DataTable({
                         dom: 'lBfrtip',  
                         paging: true,
@@ -125,7 +121,7 @@
                                 orientation: 'landscape',
                                 pageSize: 'LEGAL',
                                 messageTop: function () {
-                                    return "<b>Site</b>  :"+comName+"<br/><b>Gudang</b>  :"+wName+"<br/><b>Kategori</b> : "+cName;
+                                    return "<b>Site</b>  :"+comName+"<br/><b>Gudang</b>  :"+wName+"<br/><b>Kategori</b> : "+cName+"<br/><b>Tanggal</b> : "+cDate;
                                 },
                                 customize: function ( win ) {
                                     $(win.document.body)
@@ -170,6 +166,28 @@
                 // console.log(company_id,warehouse_id);
             }
         });
+
+
+        $('body').on('click', '.modal-show', function (event) {
+            event.preventDefault();
+            
+            let me = $(this),
+                url = me.attr('href'),
+                title = me.attr('title');
+
+            $('#modal-title').html(title);
+            $('#modal-btn-save').text(me.hasClass('edit') ? 'Update' : 'Create');
+            $.ajax({
+                url: url,
+                dataType:'html',
+                success:function(response){
+                    $('#modal-body').html(response)
+                } 
+            });
+
+            $('#modal').modal('show');
+        });
+
 
 
         

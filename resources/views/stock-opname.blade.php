@@ -66,7 +66,8 @@
         </div>
 
         <div class="form-group row ml-0">
-            <button type="submit" id="btnFilter" class="offset-md-2 btn btn-primary">Search</button>
+            <button type="submit" id="btnFilter" class="offset-md-2 btn btn-secondary">
+                <i class="fas fa-search" data-feather="search"></i> Search</button>
         </div>
 
 
@@ -166,6 +167,36 @@
                     alert(errorThrown);
                 }
             });
+        });
+
+        $("#company_id").change(function (e) { 
+            e.preventDefault();
+            let company_id = $(this).val();
+            if(company_id != ""){
+                $.get("getdata/warehouse/"+company_id, function (res) {
+                    $('#warehouse_id').empty();
+                    $('#warehouse_id').append('<option value="">All</option>');
+                        $.each(res, function(key, value) {
+                            $('#warehouse_id').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                });
+            }
+        });
+
+
+        $("#warehouse_id").change(function (e) { 
+            e.preventDefault();
+            let company_id = $("#warehouse_id").val();
+            let warehouse_id = $(this).val();
+            if(company_id != "" && warehouse_id !=""){
+                $.get("getdata/warehouse/"+company_id+"/"+warehouse_id, function (res) {
+                    $('#category_id').empty();
+                    $('#category_id').append('<option value="">All</option>');
+                        $.each(res, function(key, value) {
+                            $('#category_id').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                });
+            }
         });
 
     });

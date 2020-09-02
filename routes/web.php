@@ -45,4 +45,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('stock-opname', 'StockOpnameController@update')->name('stock.opname.post');
     Route::post('stock-freeze/update', 'StockFreezeController@update')->name('stock.freeze.post');
     Route::post('getdata/stock-freeze', 'StockFreezeController@getData')->name('get.stock.freeze');
+
+    //import data warehouse
+    Route::get('upload', 'UploadController@index')->name('upload.index');
+    Route::post('drug/import', 'UploadController@import')->name('drug.import');
+    Route::get('durg/download', function () {
+        $pathToFile = public_path('storage/format-upload/drug.csv');
+        return response()->download($pathToFile);
+    })->name('drug.download');
+    Route::get('getdata/warehouse/{company_id}', 'WarehouseController@getWarehouse');
+    Route::get('getdata/warehouse/{company_id}/{warehouse_id}', 'WarehouseController@getCategory');
 });

@@ -18,6 +18,7 @@ class Drug extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
+
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'unit_type_id');
@@ -25,7 +26,7 @@ class Drug extends Model
 
     public function category()
     {
-        return $this->belongsTo(Unit::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function group()
@@ -35,11 +36,11 @@ class Drug extends Model
 
     public function comodity()
     {
-        return $this->belongsTo(Group::class, 'comodity_id');
+        return $this->belongsTo(Comodity::class, 'comodity_id');
     }
 
     public function material()
     {
-        return $this->belongsTo(Group::class, 'material_id');
+        return $this->belongsTo(MaterialGroup::class, 'material_id');
     }
 }

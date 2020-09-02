@@ -36,7 +36,8 @@
                 </div>
             </div>
             <div class="form-group row ml-0">
-                <button type="submit" class="offset-md-2 btn btn-primary">Update</button>
+                <button type="submit" class="offset-md-2 btn btn-secondary">
+                    <i class="fas fa-refresh" data-feather="refresh"></i> Update</button>
             </div>
         </form>
     </div>
@@ -70,7 +71,6 @@
                     success: function (data) {
                         for (let i = 0; i < data.length; i++) {
                             let id = data[i].id;
-                            // console.log();                        
                         $(".warehouse_list_"+id).attr('checked',true);
                         }
                     },
